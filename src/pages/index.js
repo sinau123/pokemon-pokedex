@@ -24,7 +24,7 @@ const Home = ({ pokemons, pokemon }) => {
   const router = useRouter();
   const [show, setShow] = useState(!!router.query.name);
   const [myPokemon, setPokemon] = useState(pokemon);
-  const [myPokemons, setPokemons] = useState(pokemons || []);
+  const [pokemonList, setPokemonList] = useState(pokemons || []);
 
   const handleRouteChange = useCallback(async () => {
     const name = router.query.name;
@@ -41,16 +41,16 @@ const Home = ({ pokemons, pokemon }) => {
         setPokemon(null);
       }
 
-      if (myPokemons.length === 0) {
+      if (pokemonList.length === 0) {
         NProgress.start();
         const { data } = await service.pokemons.GET_LIST({ limit: 20 });
         NProgress.done();
-        setPokemons(data.pokemons.results);
+        setPokemonList(data.pokemons.results);
       }
     } catch (err) {
       toast.error(err.message);
     }
-  }, [router.query.name, myPokemons]);
+  }, [router.query.name, pokemonList]);
 
   useEffect(() => {
     handleRouteChange();
@@ -62,7 +62,7 @@ const Home = ({ pokemons, pokemon }) => {
         limit: 20,
         offset,
       });
-      setPokemons((pokemons) => [...pokemons, ...data.pokemons.results]);
+      setPokemonList((pokemons) => [...pokemons, ...data.pokemons.results]);
       offset = offset + 20;
     } catch (err) {
       toast.error(err.message);
@@ -82,9 +82,9 @@ const Home = ({ pokemons, pokemon }) => {
         <div>
           <InfiniteScroll
             style={{ overflow: 'hidden' }}
-            dataLength={myPokemons.length}
+            dataLength={pokemonList.length}
             next={morePokemons}
-            hasMore={myPokemons.length % 20 === 0}
+            hasMore={pokemonList.length % 20 === 0}
             loader={<Loader className={tw`h-8 w-8`}></Loader>}
             endMessage={
               <p style={{ textAlign: 'center' }}>
@@ -93,7 +93,7 @@ const Home = ({ pokemons, pokemon }) => {
             }
           >
             <div css={cardList}>
-              {myPokemons.map((pokemon, idx) => (
+              {pokemonList.map((pokemon, idx) => (
                 <PokemonItem
                   key={pokemon.id}
                   pokemon={pokemon}

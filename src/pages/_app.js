@@ -30,7 +30,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <Component {...pageProps} />{' '}
       </Layout>{' '}
-      <ToastContainer />
+      <ToastContainer hideProgressBar={true} theme={'colored'} limit={1} />
     </>
   );
 }

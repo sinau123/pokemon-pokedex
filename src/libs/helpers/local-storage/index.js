@@ -22,4 +22,7 @@ const localStorageHelper = {
     localStorage.setItem(key, data);
   },
 };
+export const localStorageKeys = {
+  MY_POKEMONS: 'my_pokemons',
+};
 export default localStorageHelper;
