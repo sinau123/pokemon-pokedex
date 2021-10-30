@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import tw from 'twin.macro';
 import { jsx } from '@emotion/react';
 import { useState } from 'react';
+import pokemonHelper from '@/libs/helpers/pokemon';
 
 const PokemonMoves = ({ pokemon }) => {
   const [showAllMoves, setShowAllMoves] = useState(pokemon.moves.length < 20);
+  const pokemonData = pokemonHelper(pokemon);
   return (
     <div
       css={[
@@ -17,7 +19,10 @@ const PokemonMoves = ({ pokemon }) => {
         {pokemon.moves.map(({ move }) => (
           <div
             key={move.name}
-            css={tw`p-2 border rounded-xl bg-teal-500 text-white text-sm m-0.5 italic`}
+            css={[
+              tw`p-2 border rounded-xl text-white text-sm m-0.5 italic`,
+              pokemonData.color().bgColor,
+            ]}
           >
             {move.name}
           </div>

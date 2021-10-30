@@ -64,7 +64,7 @@ const CatchButton = ({ pokemon }) => {
         >
           <div>
             <h1 css={tw`text-3xl font-bold`}>
-              Cool!!! You got
+              Cool! You got
               <div
                 css={[
                   tw` text-2xl capitalize italic mt-4`,
