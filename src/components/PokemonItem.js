@@ -13,7 +13,12 @@ const PokemonItem = ({ pokemon }) => {
   );
 
   return (
-    <Link shallow={true} href={`?name=${pokemon.name}`} passHref>
+    <Link
+      shallow={true}
+      href={`?name=${pokemon.name}`}
+      as={`/detail/${pokemon.name}`}
+      passHref
+    >
       <a data-aos="fade-up">
         <div className={cardItem}>
           <div>

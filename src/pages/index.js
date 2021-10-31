@@ -186,16 +186,3 @@ const cardList = {
   background: 'white',
   overflow: 'hidden',
 };
-
-/**
- * {
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))',
-              gridGap: '1.5rem 1.3rem',
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: '2em 1em',
-              background: 'white',
-              overflow: 'hidden',
-            }
- */
