@@ -31,7 +31,7 @@ export default function Layout({ children }) {
               <li key={path}>
                 <Link href={path}>
                   <a
-                    className={`px-4 py-2 rounded-lg block font-bold text-white hover:bg-blue-500 ${
+                    className={`text-shadow px-4 py-2 rounded-lg block font-bold text-white hover:bg-blue-500 ${
                       isActiveLink(path) ? 'bg-blue-500' : ''
                     }`}
                   >

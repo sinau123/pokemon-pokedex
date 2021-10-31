@@ -74,10 +74,26 @@ const Home = ({ pokemon }) => {
   );
   if (myPokemon) {
     const pokemonData = pokemonHelper(myPokemon);
-    const desc = `${pokemonData.nameUpper} has ${pokemonData.types.map(
-      (type) => type.name
-    )} type(s)`;
-    head = <PageHead title={pokemonData.nameUpper} description={desc} />;
+    let types = pokemonData.types.map((type) => type.name);
+
+    if (types.length > 2) {
+      types = [
+        ...[
+          types.slice(0, types.length - 2).join(', '),
+          ...[types[types.length - 1]],
+        ],
+      ].join(' and ');
+    }
+
+    types = types.join(' and ');
+    const desc = `${pokemonData.nameUpper} has ${types} type`;
+    head = (
+      <PageHead
+        title={pokemonData.nameUpper}
+        description={desc}
+        image={pokemonData.image}
+      />
+    );
   }
   if (typeof window === 'undefined') {
     return <div>{head}</div>;
@@ -131,7 +147,7 @@ Home.propTypes = {
   pokemon: PropTypes.object,
 };
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, resolvedUrl }) {
   const name = query.name;
   if (name) {
     try {
@@ -153,7 +169,9 @@ export async function getServerSideProps({ query }) {
   }
 
   return {
-    props: {},
+    props: {
+      url: resolvedUrl,
+    },
   };
 }
 export default Home;

@@ -2,7 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 
 // eslint-disable-next-line react/prop-types
-export default function Seo({ description, title }) {
+export default function Seo({ description, title, image }) {
   const headTitle = `${title} | Pokemon Pokedex`;
   return (
     <Head>
@@ -12,6 +12,7 @@ export default function Seo({ description, title }) {
       <meta property="og:title" content={headTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={headTitle} />
+      <meta property="og:image" content={image} />
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:title" content={headTitle} />
       <meta property="twitter:description" content={description} />

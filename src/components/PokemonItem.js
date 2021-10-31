@@ -25,7 +25,8 @@ const PokemonItem = ({ pokemon }) => {
               <div
                 className={`text-sm px-4 py-1.5 font-bold text-left bg-white`}
               >
-                Owned: <span>{myPokemons[pokemon.id]?.owned.length ?? 0}</span>
+                Total Owned:{' '}
+                <span>{myPokemons[pokemon.id]?.owned.length ?? 0}</span>
               </div>
             </div>
           </div>
