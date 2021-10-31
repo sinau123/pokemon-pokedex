@@ -1,7 +1,5 @@
-/** @jsx jsx */
+import React from 'react';
 import PropTypes from 'prop-types';
-import tw from 'twin.macro';
-import { jsx } from '@emotion/react';
 import { useState } from 'react';
 import pokemonHelper from '@/libs/helpers/pokemon';
 
@@ -10,32 +8,29 @@ const PokemonMoves = ({ pokemon }) => {
   const pokemonData = pokemonHelper(pokemon);
   return (
     <div
-      css={[
-        tw`relative max-w-[600px] mx-auto `,
-        !showAllMoves ? tw`overflow-hidden max-h-[150px]` : '',
-      ]}
+      className={`relative max-w-[600px] mx-auto ${
+        !showAllMoves ? `overflow-hidden max-h-[150px]` : ''
+      }`}
     >
-      <div css={tw`flex flex-wrap items-center -mx-2 justify-center `}>
+      <div className={`flex flex-wrap items-center -mx-2 justify-center `}>
         {pokemon.moves.map(({ move }) => (
           <div
             key={move.name}
-            css={[
-              tw`p-2 border rounded-xl text-white text-sm m-0.5 italic`,
-              pokemonData.color().bgColor,
-            ]}
+            className={`p-2 border rounded-xl text-white text-sm m-0.5 italic ${
+              pokemonData.color().bgColor
+            }`}
           >
             {move.name}
           </div>
         ))}
       </div>
       <div
-        css={[
-          tw`absolute bottom-0 left-0 w-full h-[150px] flex items-end justify-center bg-gradient-to-b from-transparent to-white`,
-          showAllMoves ? tw`hidden` : '',
-        ]}
+        className={`absolute bottom-0 left-0 w-full h-[150px] flex items-end justify-center bg-gradient-to-b from-transparent to-white ${
+          showAllMoves ? `hidden` : ''
+        }`}
       >
         <button
-          css={tw`px-4 border-2 rounded-lg bg-white py-2 text-sm font-bold border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-gray-200`}
+          className={`px-4 border-2 rounded-lg bg-white py-2 text-sm font-bold border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-gray-200`}
           onClick={() => setShowAllMoves(true)}
         >
           Show All

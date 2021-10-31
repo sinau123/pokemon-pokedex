@@ -1,11 +1,9 @@
-/** @jsx jsx */
+import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import PropTypes from 'prop-types';
 import NProgress from 'nprogress';
 import { useRouter } from 'next/router';
-import tw, { css } from 'twin.macro';
-import { jsx } from '@emotion/react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { toast } from 'react-toastify';
 import PokemonItem from '@/components/PokemonItem';
@@ -14,26 +12,25 @@ import { sleep } from '@/libs';
 import pokemonHelper from '@/libs/helpers/pokemon';
 import PageHead from '@/components/PageHead';
 import PokemonDetail from '@/components/PokemonDetail';
-import MyImage from '@/components/MyImage';
 import Loader from '@/components/Loader';
+import MyImage from '@/components/MyImage';
 
 const Dialog = dynamic(() => import('@/components/Dialog'), { ssr: false });
 
-let offset = 20;
-const Home = ({ pokemons, pokemon }) => {
+let offset = 0;
+const Home = ({ pokemon }) => {
   const router = useRouter();
   const [show, setShow] = useState(!!router.query.name);
   const [myPokemon, setPokemon] = useState(pokemon);
-  const [pokemonList, setPokemonList] = useState(pokemons || []);
+  const [pokemonList, setPokemonList] = useState([]);
 
   const handleRouteChange = useCallback(async () => {
     const name = router.query.name;
+    NProgress.start();
     try {
       if (name) {
         setShow(true);
-        NProgress.start();
         const { data } = await service.pokemons.GET_DETAIL({ name });
-        NProgress.done();
         setPokemon(data.pokemon);
       } else {
         setShow(false);
@@ -42,14 +39,15 @@ const Home = ({ pokemons, pokemon }) => {
       }
 
       if (pokemonList.length === 0) {
-        NProgress.start();
         const { data } = await service.pokemons.GET_LIST({ limit: 20 });
-        NProgress.done();
+        offset += 20;
         setPokemonList(data.pokemons.results);
       }
     } catch (err) {
       toast.error(err.message);
     }
+
+    NProgress.done();
   }, [router.query.name, pokemonList]);
 
   useEffect(() => {
@@ -69,30 +67,37 @@ const Home = ({ pokemons, pokemon }) => {
     }
   };
 
+  const head = (
+    <PageHead
+      pageName={myPokemon ? pokemonHelper(myPokemon).nameUpper : 'Home'}
+    />
+  );
+  if (typeof window === 'undefined') {
+    return <div>{head}</div>;
+  }
+
   return (
-    <div css={pageWrapper}>
-      <PageHead
-        pageName={myPokemon ? pokemonHelper(myPokemon).nameUpper : 'Home'}
-      />
+    <div className={`mx-2 md:mx-4`} suppressHydrationWarning={true}>
+      {head}
 
       <main>
-        <div css={tw`flex justify-center py-8`}>
-          <MyImage image={{ src: '/assets/img/logo.png', width: 300 }} />
+        <div className={`mx-auto w-[300px]`}>
+          <MyImage src={'/assets/img/logo.png'} width={5} height={3} />
         </div>
-        <div>
+        <div className="py-4">
           <InfiniteScroll
             style={{ overflow: 'hidden' }}
             dataLength={pokemonList.length}
             next={morePokemons}
             hasMore={pokemonList.length % 20 === 0}
-            loader={<Loader className={tw`h-8 w-8`}></Loader>}
+            loader={<Loader className={`h-8 w-8`}></Loader>}
             endMessage={
               <p style={{ textAlign: 'center' }}>
                 <b>Yay! You have seen it all</b>
               </p>
             }
           >
-            <div css={cardList}>
+            <div style={cardList}>
               {pokemonList.map((pokemon, idx) => (
                 <PokemonItem
                   key={pokemon.id}
@@ -104,14 +109,12 @@ const Home = ({ pokemons, pokemon }) => {
           </InfiniteScroll>
         </div>
       </main>
-      {show && (
-        <Dialog
-          show={show}
-          onDialogClose={() => router.push('/', null, { shallow: true })}
-        >
-          <PokemonDetail pokemon={myPokemon} />
-        </Dialog>
-      )}
+      <Dialog
+        show={show}
+        onDialogClose={() => router.push('/', null, { shallow: true })}
+      >
+        <PokemonDetail pokemon={myPokemon} />
+      </Dialog>
     </div>
   );
 };
@@ -142,34 +145,22 @@ export async function getServerSideProps({ query }) {
     }
   }
 
-  try {
-    const { data } = await service.pokemons.GET_LIST({ limit: 20 });
-    return {
-      props: {
-        pokemons: data.pokemons.results,
-      },
-    };
-  } catch (err) {
-    return {
-      props: {
-        pokemons: [],
-      },
-    };
-  }
+  return {
+    props: {},
+  };
 }
 export default Home;
 
-const pageWrapper = tw`mx-2 md:mx-4`;
-const cardList = css`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
-  grid-gap: 1.5rem 1.3rem;
-  justify-content: center;
-  align-items: center;
-  padding: 2em 1em;
-  background: white;
-  overflow: hidden;
-`;
+const cardList = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(14rem, 1fr))',
+  gridGap: '1.5rem 1.3rem',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '2em 1em',
+  background: 'white',
+  overflow: 'hidden',
+};
 
 /**
  * {

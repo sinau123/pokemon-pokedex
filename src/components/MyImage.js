@@ -1,28 +1,18 @@
-/** @jsx jsx */
-import { jsx } from '@emotion/react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-import { css } from '@emotion/react';
-
-const MyImage = ({ image }) => (
-  <div
-    css={css`
-      max-width: ${image.width}px;
-      min-height: ${image.height}px;
-    `}
-  >
-    <LazyLoadImage
-      alt={image.alt || image.src}
-      src={image.src}
-      effect="blur"
-      placeholderSrc="/assets/img/default.png"
-    />
-    <span>{image.caption}</span>
-  </div>
+import Image from 'next/image';
+const MyImage = (props) => (
+  <Image
+    layout={'responsive'}
+    blurDataURL={'/assets/img/default.png'}
+    alt={props.alt}
+    width={1}
+    height={1}
+    {...props}
+  />
 );
 MyImage.propTypes = {
-  image: PropTypes.object,
+  alt: PropTypes.string,
 };
 
 export default MyImage;

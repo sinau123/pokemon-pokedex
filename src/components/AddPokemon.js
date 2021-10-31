@@ -1,14 +1,12 @@
-/** @jsx jsx */
+import React from 'react';
 import PropTypes from 'prop-types';
-import tw from 'twin.macro';
-import { jsx } from '@emotion/react';
 import { toast } from 'react-toastify';
 import pokemonHelper from '@/libs/helpers/pokemon';
-import MyImage from './MyImage';
 import localStorageHelper, {
   localStorageKeys,
 } from '@/libs/helpers/local-storage';
 import { useState } from 'react';
+import MyImage from './MyImage';
 
 const toastError = (message) => {
   toast.error(message, {
@@ -60,36 +58,31 @@ const AddPokemon = ({ pokemon, onAddSuccess }) => {
   };
   return (
     <div>
-      <h1 css={tw`text-3xl font-bold`}>
+      <h1 className={`text-3xl font-bold`}>
         Cool! You got
         <div
-          css={[
-            tw` text-2xl capitalize italic mt-4`,
-            pokemonData.color().textColor,
-          ]}
+          className={` text-2xl capitalize italic mt-4 $pokemonData.color().textColor}`}
         >
           {pokemon.name}
         </div>
       </h1>
-      <div css={tw`flex justify-center py-4`}>
-        <MyImage
-          image={{ src: pokemonData.dreamworld, width: 200, height: 200 }}
-        />
+      <div className={`py-4 w-56 mx-auto`}>
+        <MyImage src={pokemonData.dreamworld} />
       </div>
-      <p css={tw`font-bold mb-3`}>
+      <p className={`font-bold mb-3`}>
         Type a name and add to &quot;My Pokemon List&quot;!
       </p>
-      <form css={tw`w-[258px] text-center mx-auto`} onSubmit={addPokemon}>
+      <form className={`w-[258px] text-center mx-auto`} onSubmit={addPokemon}>
         <input
-          css={tw`w-full px-4 py-2 rounded-lg border-2 border-gray-500 outline-none focus:border-blue-400`}
+          className={`w-full px-4 py-2 rounded-lg border-2 border-gray-500 outline-none focus:border-blue-400`}
           type="text"
           placeholder="Pokemon Nickname..."
           value={pokemonNickname}
           onChange={(ev) => setPokemonNickname(ev.target.value)}
         ></input>
-        <div css={tw`my-4`}>
+        <div className={`my-4`}>
           <button
-            css={tw`w-full rounded-2xl text-xl bg-blue-500 hover:bg-blue-600 text-gray-100 font-bold px-4 py-2`}
+            className={`w-full rounded-2xl text-xl bg-blue-500 hover:bg-blue-600 text-gray-100 font-bold px-4 py-2`}
           >
             Add
           </button>

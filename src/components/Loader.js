@@ -1,12 +1,10 @@
-/** @jsx jsx */
+import React from 'react';
 import PropTypes from 'prop-types';
-import tw from 'twin.macro';
-import { jsx } from '@emotion/react';
 
 const Loader = ({ className }) => {
   return (
     <svg
-      css={[tw`animate-spin mx-auto text-blue-400`, className]}
+      className={`animate-spin mx-auto text-blue-400 ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

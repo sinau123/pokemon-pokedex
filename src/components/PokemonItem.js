@@ -1,22 +1,31 @@
-/** @jsx jsx */
+import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
-import tw from 'twin.macro';
-import { jsx } from '@emotion/react';
+import localStorageHelper, {
+  localStorageKeys,
+} from '@/libs/helpers/local-storage';
 import MyImage from './MyImage';
 
 const PokemonItem = ({ pokemon }) => {
+  const myPokemons = localStorageHelper.getItem(
+    localStorageKeys.MY_POKEMONS,
+    {}
+  );
+
   return (
     <Link shallow={true} href={`?name=${pokemon.name}`} passHref>
       <a data-aos="fade-up">
-        <div css={cardItem}>
+        <div className={cardItem}>
           <div>
-            <div css={imgItem}>
-              <MyImage
-                image={{ src: pokemon.artwork, width: 150, height: 150 }}
-              />
+            <div className={imgItem}>
+              <MyImage src={pokemon.artwork}></MyImage>
             </div>
-            <div css={cardName}>{pokemon.name}</div>
+            <div className={cardName}>
+              <div>{pokemon.name}</div>
+              <div className={`text-sm not-italic`}>
+                Owned: <span>{myPokemons[pokemon.id]?.owned.length ?? 0}</span>
+              </div>
+            </div>
           </div>
         </div>
       </a>
@@ -30,6 +39,6 @@ PokemonItem.propTypes = {
 
 export default PokemonItem;
 
-const imgItem = tw`w-[150px] mx-auto md:py-6`;
-const cardItem = tw`transform md:hover:scale-110 overflow-hidden bg-gradient-to-t from-gray-100 to-gray-300 border border-gray-200 text-center cursor-pointer rounded-md duration-300 ease-in-out`;
-const cardName = tw`py-2 text-xl font-bold text-gray-800 capitalize italic bg-white`;
+const imgItem = `w-[150px] mx-auto md:py-6`;
+const cardItem = `transform md:hover:scale-110 overflow-hidden bg-gradient-to-t from-gray-100 to-gray-300 border border-gray-200 text-center cursor-pointer rounded-md duration-300 ease-in-out`;
+const cardName = `py-2 text-xl font-bold text-gray-800 capitalize italic bg-white`;

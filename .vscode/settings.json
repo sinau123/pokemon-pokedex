@@ -2,5 +2,8 @@
   "editor.formatOnSave": true,
   "files.exclude": {
     "**/.next": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true
   }
 }

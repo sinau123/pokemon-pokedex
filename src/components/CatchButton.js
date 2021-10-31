@@ -1,7 +1,5 @@
-/** @jsx jsx */
+import React from 'react';
 import PropTypes from 'prop-types';
-import tw from 'twin.macro';
-import { jsx } from '@emotion/react';
 import throttle from 'lodash/throttle';
 import Dialog from './Dialog';
 import AddPokemon from './AddPokemon';
@@ -34,13 +32,12 @@ const CatchButton = ({ pokemon }) => {
 
   return (
     <div>
-      <div css={tw`relative inline-block`}>
+      <div className={`relative inline-block`}>
         <button
           type="button"
-          css={[
-            tw`w-[250px] rounded-2xl text-xl bg-red-500 hover:bg-red-600 text-gray-100 font-bold px-4 py-2`,
-            missedMessage === false ? tw`bg-blue-500 hover:bg-blue-600` : '',
-          ]}
+          className={`w-[250px] rounded-2xl text-xl bg-red-500 hover:bg-red-600 text-gray-100 font-bold px-4 py-2 ${
+            missedMessage === false ? `bg-blue-500 hover:bg-blue-600` : ''
+          }`}
           onClick={doCatch}
         >
           {missedMessage !== false
@@ -48,19 +45,17 @@ const CatchButton = ({ pokemon }) => {
             : 'Click to Catch!'}
         </button>
       </div>
-      {isCatched && (
-        <Dialog
-          show={isCatched}
-          onDialogClose={() => setCatched(null)}
-          styleTw={tw`z-10`}
-          width={'400px'}
-        >
-          <AddPokemon
-            pokemon={pokemon}
-            onAddSuccess={() => setCatched(null)}
-          ></AddPokemon>
-        </Dialog>
-      )}
+      <Dialog
+        show={!!isCatched}
+        onDialogClose={() => setCatched(null)}
+        styleTw={'z-1'}
+        width={'400px'}
+      >
+        <AddPokemon
+          pokemon={pokemon}
+          onAddSuccess={() => setCatched(null)}
+        ></AddPokemon>
+      </Dialog>
     </div>
   );
 };

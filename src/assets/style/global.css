@@ -32,3 +32,29 @@ html {
     border-radius: 100px;
   }
 }
+
+@keyframes slideUp {
+  from {
+    transform: translateY(300px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+.animation-slideup {
+  animation: slideUp 0.3s;
+}
+
+.animation-slidedown {
+  animation: slideDown 0.3s;
+}
