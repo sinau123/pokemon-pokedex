@@ -53,7 +53,10 @@ const AddPokemon = ({ pokemon, onAddSuccess }) => {
 
     localStorageHelper.setItem(localStorageKeys.MY_POKEMONS, myPokemons);
 
-    toast.success('Pokemon added to "My Pokemon List"');
+    toast.success('Pokemon added to "My Pokemon List"', {
+      toastId: 'toastSuccess',
+    });
+    setPokemonNickname('');
     onAddSuccess();
   };
   return (
@@ -67,7 +70,7 @@ const AddPokemon = ({ pokemon, onAddSuccess }) => {
         </div>
       </h1>
       <div className={`py-4 w-56 mx-auto`}>
-        <MyImage src={pokemonData.dreamworld} />
+        <MyImage src={pokemonData.artwork} />
       </div>
       <p className={`font-bold mb-3`}>
         Type a name and add to &quot;My Pokemon List&quot;!
@@ -82,7 +85,7 @@ const AddPokemon = ({ pokemon, onAddSuccess }) => {
         ></input>
         <div className={`my-4`}>
           <button
-            className={`w-full rounded-2xl text-xl bg-blue-500 hover:bg-blue-600 text-gray-100 font-bold px-4 py-2`}
+            className={`w-full rounded-md text-xl bg-blue-500 hover:bg-blue-600 text-gray-100 font-bold px-4 py-2`}
           >
             Add
           </button>

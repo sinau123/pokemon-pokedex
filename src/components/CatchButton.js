@@ -35,8 +35,10 @@ const CatchButton = ({ pokemon }) => {
       <div className={`relative inline-block`}>
         <button
           type="button"
-          className={`w-[250px] rounded-2xl text-xl bg-red-500 hover:bg-red-600 text-gray-100 font-bold px-4 py-2 ${
-            missedMessage === false ? `bg-blue-500 hover:bg-blue-600` : ''
+          className={`w-[250px] rounded-md text-xl text-gray-100 font-bold px-4 py-2 ${
+            missedMessage === false
+              ? `bg-blue-500 hover:bg-blue-600`
+              : 'bg-red-500 hover:bg-red-600'
           }`}
           onClick={doCatch}
         >

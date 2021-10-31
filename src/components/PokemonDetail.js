@@ -66,6 +66,6 @@ const contentClass = `flex-1 flex flex-col justify-beeen -mt-8`;
 const pokemonNameClass = `mb-4 text-5xl text-black italic text-center font-bold capitalize`;
 const detailWrapperClass = `flex-1 relative h-full pt-0 text-center`;
 const pokemonImageClass = `absolute left-0 right-0 -top-80 min-h-[200px] max-w-[300px] w-full mx-auto`;
-const typeclassName = `px-2 py-1 text-white min-w-[90px] capitalize font-bold rounded-lg`;
+const typeclassName = `px-2 py-1 text-white min-w-[90px] capitalize font-bold rounded-4xl text-shadow`;
 
 export default PokemonDetail;

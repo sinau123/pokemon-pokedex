@@ -16,7 +16,7 @@ const PokemonMoves = ({ pokemon }) => {
         {pokemon.moves.map(({ move }) => (
           <div
             key={move.name}
-            className={`p-2 border rounded-xl text-white text-sm m-0.5 italic ${
+            className={`text-shadow p-2 py-1 border rounded-4xl min-w-16 text-sm text-white font-bold m-0.5 ${
               pokemonData.color().bgColor
             }`}
           >
@@ -30,7 +30,7 @@ const PokemonMoves = ({ pokemon }) => {
         }`}
       >
         <button
-          className={`px-4 border-2 rounded-lg bg-white py-2 text-sm font-bold border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-gray-200`}
+          className={`px-4 border-2 rounded-md bg-white py-2 text-sm font-bold border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-gray-200`}
           onClick={() => setShowAllMoves(true)}
         >
           Show All

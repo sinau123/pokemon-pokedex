@@ -12,7 +12,7 @@ const PokemonStats = ({ pokemon }) => {
           <div className={`w-1/2 p-[1px] rounded-lg `}>
             <div className={`bg-gray-300 rounded-lg border-2 border-white`}>
               <div
-                className={`text-xs text-white font-bold text-left px-2 rounded-lg ${
+                className={`text-xs text-white text-shadow font-bold text-left px-2 rounded-lg ${
                   pokemonData.color().bgColor
                 }`}
                 style={{ width: pokemonData.getStatPercent(stat) + '%' }}

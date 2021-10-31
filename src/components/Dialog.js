@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -30,8 +31,8 @@ const Dialog = ({ show, children, onDialogClose, width, ...props }) => {
       }
     };
   }, []);
-  console.log(dialogs, show, children);
-  return (
+
+  return ReactDOM.createPortal(
     <CSSTransition in={show} unmountOnExit timeout={{ enter: 600, exit: 1000 }}>
       <div
         className={[modalContainer, dialogShow(show), props.styleTw].join(' ')}
@@ -54,7 +55,8 @@ const Dialog = ({ show, children, onDialogClose, width, ...props }) => {
           </div>
         </div>
       </div>
-    </CSSTransition>
+    </CSSTransition>,
+    document.querySelector('body')
   );
 };
 
@@ -66,13 +68,13 @@ Dialog.propTypes = {
   width: PropTypes.string,
 };
 
-const closeBtn = `absolute right-4 top-2 md:-right-6 md:-top-1 md:text-white text-2xl md:text-3xl text-right cursor-pointer float-right md:float-none`;
+const closeBtn = `absolute z-10 right-6 top-2 md:-right-6 md:-top-1 md:text-white text-2xl md:text-3xl text-right cursor-pointer float-right md:float-none`;
 
 const dialogShow = (show) =>
   !show ? `opacity-0 pointer-events-none` : `opacity-100`;
 
 const modalContainer = `
-  fixed w-full h-full left-0 top-0 bg-gray-700 bg-opacity-70 transition-all duration-300 flex items-end md:items-center md:px-8
+  fixed w-full h-full left-0 top-0 bg-gray-700 bg-opacity-70 transition-all duration-300 flex items-end md:items-center md:px-8 z-10
 `;
 const modalBody = `relative flex flex-col min-h-[60%] max-h-[95%] w-full md:max-w-3xl mx-auto`;
 

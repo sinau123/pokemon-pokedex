@@ -19,10 +19,12 @@ const PokemonItem = ({ pokemon }) => {
           <div>
             <div className={imgItem}>
               <MyImage src={pokemon.artwork}></MyImage>
+              <div className={cardName}>{pokemon.name}</div>
             </div>
-            <div className={cardName}>
-              <div>{pokemon.name}</div>
-              <div className={`text-sm not-italic`}>
+            <div>
+              <div
+                className={`text-sm px-4 py-1.5 font-bold text-left bg-white`}
+              >
                 Owned: <span>{myPokemons[pokemon.id]?.owned.length ?? 0}</span>
               </div>
             </div>
@@ -39,6 +41,6 @@ PokemonItem.propTypes = {
 
 export default PokemonItem;
 
-const imgItem = `w-[150px] mx-auto md:py-6`;
+const imgItem = `w-[150px] mx-auto py-2`;
 const cardItem = `transform md:hover:scale-110 overflow-hidden bg-gradient-to-t from-gray-100 to-gray-300 border border-gray-200 text-center cursor-pointer rounded-md duration-300 ease-in-out`;
-const cardName = `py-2 text-xl font-bold text-gray-800 capitalize italic bg-white`;
+const cardName = `py-2 text-xl font-bold text-gray-800 capitalize italic`;

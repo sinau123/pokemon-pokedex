@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Zen+Antique+Soft&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
 html,
 body {
   background: #fff url('../img/container_bg.png');
   text-align: center;
-  font-family: 'Crimson Text', -apple-system, BlinkMacSystemFont, Segoe UI,
+  margin: 40px 0;
+}
+
+body * {
+  font-family: 'Roboto Slab', -apple-system, BlinkMacSystemFont, Segoe UI,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
-
-  margin: 40px 0;
 }
 
 html {

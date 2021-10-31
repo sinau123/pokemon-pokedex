@@ -13,7 +13,6 @@ import pokemonHelper from '@/libs/helpers/pokemon';
 import PageHead from '@/components/PageHead';
 import PokemonDetail from '@/components/PokemonDetail';
 import Loader from '@/components/Loader';
-import MyImage from '@/components/MyImage';
 
 const Dialog = dynamic(() => import('@/components/Dialog'), { ssr: false });
 
@@ -67,11 +66,19 @@ const Home = ({ pokemon }) => {
     }
   };
 
-  const head = (
+  let head = (
     <PageHead
-      pageName={myPokemon ? pokemonHelper(myPokemon).nameUpper : 'Home'}
+      title={'Home'}
+      description="Welcome to Pokemon Pokedex! See all list of available pokemons"
     />
   );
+  if (myPokemon) {
+    const pokemonData = pokemonHelper(myPokemon);
+    const desc = `${pokemonData.nameUpper} has ${pokemonData.types.map(
+      (type) => type.name
+    )} type(s)`;
+    head = <PageHead title={pokemonData.nameUpper} description={desc} />;
+  }
   if (typeof window === 'undefined') {
     return <div>{head}</div>;
   }
@@ -81,10 +88,10 @@ const Home = ({ pokemon }) => {
       {head}
 
       <main>
-        <div className={`mx-auto w-[300px]`}>
-          <MyImage src={'/assets/img/logo.png'} width={5} height={3} />
-        </div>
-        <div className="py-4">
+        <h1 className="sm:text-5xl text-4xl sm:py-4 text-left mx-4 font-bold">
+          Pokemon Pokedex
+        </h1>
+        <div>
           <InfiniteScroll
             style={{ overflow: 'hidden' }}
             dataLength={pokemonList.length}

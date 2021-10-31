@@ -5,7 +5,7 @@ const MyImage = (props) => (
   <Image
     layout={'responsive'}
     blurDataURL={'/assets/img/default.png'}
-    alt={props.alt}
+    alt={props.alt || props.src}
     width={1}
     height={1}
     {...props}
@@ -13,6 +13,7 @@ const MyImage = (props) => (
 );
 MyImage.propTypes = {
   alt: PropTypes.string,
+  src: PropTypes.string,
 };
 
 export default MyImage;
